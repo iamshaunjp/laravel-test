@@ -1,16 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-  <h1 class="page-title">Edit Chapter</h1>
+  <h1 class="page-title">Create a New Chapter</h1>
 
   <div class="chapter-edit-form content">
     <form 
       method="POST" 
-      action="{{ route('outline.chapters.update', $chapter) }}"
-      class="edit-form"
+      action="{{ route('outline.chapters.store') }}"
+      class="create-form"
     >
       @csrf
-      @method('PUT')
 
       <div class="form-group">
         <label for="title">Chapter Title</label>
@@ -19,7 +18,6 @@
           id="title" 
           name="title" 
           class="form-input"
-          value="{{ old('title', $chapter->title) }}" 
           required
         >
 
@@ -30,10 +28,7 @@
 
       <div class="form-group">
         <label for="description" class="form-label">Description</label>
-        <textarea 
-          id="description" 
-          name="description"
-        >{{old('description', $chapter->description)}}</textarea>
+        <textarea id="description" name="description"></textarea>
 
         @error('description')
           <div class="form-error">{{ $message }}</div>
@@ -41,7 +36,7 @@
       </div>
 
       <div class="form-actions">
-        <button type="submit">Save Edits</button>
+        <button type="submit">Create Chapter</button>
       </div>
     </form>
   </div>

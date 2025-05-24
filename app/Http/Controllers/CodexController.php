@@ -7,60 +7,81 @@ use Illuminate\Http\Request;
 
 class CodexController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $codexEntries = Codex::all()->groupBy('type');
-        return view('outline.codex.index', compact('codexEntries'));
-    }
+  /**
+   * Display a listing of codex entries, grouped by type.
+   */
+  public function index()
+  {
+    $codexEntries = Codex::orderBy('type')->orderBy('name')->get()->groupBy('type');
+    return view('outline.codex.index', compact('codexEntries'));
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+  /**
+   * Show the form for creating a new codex entry.
+   */
+  public function create()
+  {
+    return view('outline.codex.create');
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+  /**
+   * Store a newly created codex entry in storage.
+   */
+  public function store(Request $request)
+  {
+    $data = $request->validate([
+      'name' => 'required|string|max:255',
+      'type' => 'required|in:character,item,location',
+      'description' => 'required|string',
+    ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+    $codex = Codex::create($data);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+    return redirect()->route('outline.codex.show', $codex)
+      ->with('success', 'Codex entry created successfully.');
+  }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+  /**
+   * Display the specified codex entry.
+   */
+  public function show(Codex $codex)
+  {
+    return view('outline.codex.show', compact('codex'));
+  }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+  /**
+   * Show the form for editing the specified codex entry.
+   */
+  public function edit(Codex $codex)
+  {
+    return view('outline.codex.edit', compact('codex'));
+  }
+
+  /**
+   * Update the specified codex entry in storage.
+   */
+  public function update(Request $request, Codex $codex)
+  {
+    $data = $request->validate([
+      'name' => 'required|string|max:255',
+      'type' => 'required|in:character,item,location',
+      'description' => 'required|string',
+    ]);
+
+    $codex->update($data);
+
+    return redirect()->route('outline.codex.show', $codex)
+      ->with('success', 'Codex entry updated successfully.');
+  }
+
+  /**
+   * Remove the specified codex entry from storage.
+   */
+  public function destroy(Codex $codex)
+  {
+    $codex->delete();
+
+    return redirect()->route('outline.codex.index')
+      ->with('success', 'Codex entry deleted successfully.');
+  }
 }

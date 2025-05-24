@@ -9,11 +9,12 @@ class ChapterFactory extends Factory
 
   public function definition(): array
   {
-    return [
-      'title' => $this->faker->sentence(3),
-      'description' => $this->faker->paragraph(3),
-      'order' => $this->faker->unique()->numberBetween(1, 20), // Optional
-    ];
+      static $order = 1;
+      return [
+          'title' => $this->faker->sentence(3),
+          'description' => $this->faker->paragraph(10),
+          'order' => $order++,
+      ];
   }
 
 }

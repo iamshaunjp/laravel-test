@@ -28,8 +28,10 @@ class ChapterController extends Controller
         $data = $request->validate([
             'title' => 'required|max:255',
             'description' => 'nullable',
-            'order' => 'nullable|integer',
         ]);
+
+        $nextOrder = (Chapter::max('order') ?? 0) + 1;
+        $data['order'] = $nextOrder;
 
         $chapter = Chapter::create($data);
 
@@ -56,7 +58,11 @@ class ChapterController extends Controller
 
     public function destroy(Chapter $chapter)
     {
+        $deletedOrder = $chapter->order;
+
         $chapter->delete();
+
+        Chapter::where('order', '>', $deletedOrder)->decrement('order');
         
         return redirect()->route('outline.chapters.index');
     }

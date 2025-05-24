@@ -12,7 +12,7 @@
   --font-display: 'Pacifico', 'cursive';
 }
 
-/* custom styles */
+/* common styles */
 body {
   @apply font-sans bg-gray-50;
 }
@@ -30,31 +30,30 @@ body {
   @apply font-display text-3xl;
 }
 .site-footer {
-  @apply my-12 text-gray-500 text-center;
+  @apply my-12 pt-8 mx-40 text-gray-500 text-center mt-auto border-t-1;
 }
 .page-title {
   @apply text-center py-2 bg-gray-100;
 }
 .content {
-  @apply text-gray-500;
+  @apply text-gray-500 max-w-full box-border px-12 py-8 mx-auto w-5xl;
 }
 
 /* chapter list */
 .chapter-list {
-  @apply max-w-full box-border px-12 py-8 mx-auto w-5xl;
-}
-.chapter {
-  @apply bg-gray-100 px-4 py-4 my-4 relative rounded-sm;
-}
-.chapter-title {
-  @apply text-lg font-bold mb-2;
-}
-.chapter-description {
-  @apply leading-relaxed text-gray-700;
-}
-.chapter-edit {
-  @apply py-1 px-2 bg-cyan-700 text-white cursor-pointer absolute top-0 right-0;
-  border-radius: 0 2px 0 2px;
+  .chapter {
+    @apply bg-gray-100 px-4 py-4 my-4 relative rounded-sm;
+  }
+  .chapter-title {
+    @apply text-lg font-bold mb-2;
+  }
+  .chapter-description {
+    @apply leading-relaxed text-gray-700;
+  }
+  .chapter-edit {
+    @apply py-1 px-2 bg-teal-700 text-white cursor-pointer absolute top-0 right-0;
+    border-radius: 0 2px 0 2px;
+  }
 }
 
 /* chapter form */
@@ -67,10 +66,60 @@ body {
   textarea {
     height: 200px;
   }
+  select {
+    @apply mt-2 px-3 py-2 border-1 border-gray-200 rounded-sm bg-white block;
+  }
 }
-.edit-form {
-  @apply max-w-full box-border px-12 py-8 mx-auto w-5xl;
+.form-actions {
+  @apply flex justify-center;
+
+  button {
+    @apply bg-teal-700 text-white py-2 px-3 rounded-sm;
+  }
 }
-form button {
-  @apply bg-teal-700 text-white py-2 px-3 rounded-sm mx-auto w-100;
+
+/* chapter details */
+.chapter-details {
+  @apply flex flex-col gap-4 mt-12;
+
+  .chapter-title {
+    @apply text-lg font-bold mb-2;
+  }
+  .chapter-description {
+    @apply leading-relaxed text-gray-700;
+  }
+  .chapter-actions {
+    @apply flex justify-center mt-12 gap-4;
+  }
+}
+
+/* codex list */
+.codex-group {
+  @apply border-dotted border-2 rounded-sm mb-4;
+
+  h2 {
+    @apply font-bold p-4 border-b bg-gray-100;
+  }
+  ul {
+    @apply p-4;
+  }
+  li {
+    @apply my-2;
+  }
+  a {
+    @apply underline decoration-solid;
+  }
+}
+
+/* codex details */
+.codex-details {
+  .codex-actions {
+    @apply flex justify-center mt-12 gap-4;
+  }
+  h2 {
+    @apply text-lg font-bold mb-2;
+  }
+  .codex-meta {
+    @apply my-2;
+  }
 }

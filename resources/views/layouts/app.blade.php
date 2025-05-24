@@ -14,18 +14,15 @@
 </head>
 
 <body>
-  <div>
+  <div class="flex flex-col min-h-screen">
 
     <!-- Header -->
     <header class="site-header">
-      <div>
+      <nav>
         <a href="{{ url('/') }}" class="site-title">
           Arcitect
         </a>
-        <nav>
-          <a href="{{ url('/outline') }}">Outline</a>
-        </nav>
-      </div>
+      </nav>
     </header>
 
     <!-- Main content -->
