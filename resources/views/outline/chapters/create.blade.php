@@ -10,7 +10,7 @@
       method="POST" 
       action="{{ route('outline.chapters.store') }}"
       class="create-form"
-      @if ($isHtmx)
+      @if($isHtmx)
         hx-post="{{ route('outline.chapters.store') }}"
         hx-target=".chapter-list"
         hx-swap="outerHTML"

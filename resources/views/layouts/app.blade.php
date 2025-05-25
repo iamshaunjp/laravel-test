@@ -13,7 +13,7 @@
   @stack('head')
 </head>
 
-<body>
+<body hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'>
   <div class="flex flex-col min-h-screen">
 
     <!-- Header -->
@@ -21,6 +21,9 @@
       <nav>
         <a href="{{ url('/') }}" class="site-title">
           Arcitect
+        </a>
+        <a href="{{ url('/outline') }}">
+          Outline Dashboard
         </a>
       </nav>
     </header>

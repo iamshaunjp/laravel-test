@@ -17,9 +17,12 @@ class ChapterController extends Controller
           ->fragmentIf($isHtmx, 'chapter-list');
     }
 
-    public function show(Chapter $chapter)
+    public function show(Request $request, Chapter $chapter)
     {
-        return view('outline.chapters.show', compact('chapter'));
+        $isHtmx = $request->hasHeader('HX-Request');
+
+        return view('outline.chapters.show', compact('chapter', 'isHtmx'))
+          ->fragmentIf($isHtmx, 'chapter-details');
     }
 
     public function create(Request $request)
@@ -45,18 +48,21 @@ class ChapterController extends Controller
         $isHtmx = $request->hasHeader('HX-Request');
 
         if ($isHtmx) {
-          $chapters = Chapter::orderBy('order')->get();
+            $chapters = Chapter::orderBy('order')->get();
 
-          return view('outline.chapters.index', compact('chapters', 'isHtmx'))
-            ->fragments(['chapter-list', 'modal-content']);
+            return view('outline.chapters.index', compact('chapters', 'isHtmx'))
+              ->fragments(['chapter-list', 'modal-content']);
         }
 
         return redirect()->route('outline.chapters.show', $chapter);
     }
 
-    public function edit(Chapter $chapter)
+    public function edit(Request $request, Chapter $chapter)
     {
-        return view('outline.chapters.edit', compact('chapter'));
+        $isHtmx = $request->hasHeader('HX-Request');
+
+        return view('outline.chapters.edit', compact('chapter', 'isHtmx'))
+          ->fragmentIf($isHtmx, 'edit-form');;
     }
 
     public function update(Request $request, Chapter $chapter)
@@ -69,18 +75,49 @@ class ChapterController extends Controller
 
         $chapter->update($data);
 
+        $isHtmx = $request->hasHeader('HX-Request');
+
+        if ($isHtmx) {
+            $chapters = Chapter::orderBy('order')->get();
+
+            return view('outline.chapters.index', compact('chapters', 'isHtmx'))
+              ->fragments(['chapter-list', 'modal-content']);
+        }
+
         return redirect()->route('outline.chapters.show', $chapter);
     }
 
-    public function destroy(Chapter $chapter)
+    public function destroy(Request $request, Chapter $chapter)
     {
         $deletedOrder = $chapter->order;
-
         $chapter->delete();
-
         Chapter::where('order', '>', $deletedOrder)->decrement('order');
+
+        $isHtmx = $request->hasHeader('HX-Request');
+
+        if ($isHtmx) {
+            $chapters = Chapter::orderBy('order')->get();
+
+            return view('outline.chapters.index', compact('chapters', 'isHtmx'))
+              ->fragments(['chapter-list', 'modal-content']);
+        }
         
         return redirect()->route('outline.chapters.index');
     }
+
+    public function reorder(Request $request)
+    {
+        $order = $request->input('order');
+
+        foreach ($order as $index => $chapterId) {
+            Chapter::where('id', $chapterId)->update(['order' => $index + 1]);
+        }
+        
+        $chapters = Chapter::orderBy('order')->get();
+        $isHtmx = $request->hasHeader('HX-Request');
+
+        return view('outline.chapters.index', compact('chapters', 'isHtmx'))->fragment('chapter-list');
+    }
+
 
 }

@@ -22,7 +22,7 @@ body {
 .site-header {
   @apply bg-white py-4 px-8;
 
-  div {
+  nav {
     @apply flex justify-between items-center;
   }
 }
@@ -42,7 +42,7 @@ body {
 /* chapter list */
 .chapter-list {
   .chapter {
-    @apply bg-gray-100 px-4 py-4 my-4 relative rounded-sm;
+    @apply bg-gray-100 px-4 py-4 my-4 relative rounded-sm overflow-hidden;
   }
   .chapter-title {
     @apply text-lg font-bold mb-2;
@@ -131,10 +131,20 @@ body {
 .modal-container {
   @apply hidden;
 }
-.modal-container:has(form) {
+.modal-container:has(form, .chapter-details) {
   @apply block fixed top-0 left-0 w-full h-full;
   background: rgba(0,0,0,0.5);
 }
-.modal-content:has(form) {
+.modal-content:has(form, .chapter-details) {
   @apply my-12 mx-auto p-12 bg-white rounded-sm max-w-200;
+}
+
+/* sortables */
+.sorting {
+  opacity: 0.7;
+  outline: 2px dotted #555;
+}
+
+.handle {
+  @apply absolute right-0 top-0 h-full flex items-center justify-center cursor-grab px-2 bg-gray-200;
 }
