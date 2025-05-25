@@ -7,10 +7,14 @@ use Illuminate\Http\Request;
 
 class ChapterController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $chapters = Chapter::orderBy('order')->get();
-        return view('outline.chapters.index', compact('chapters'));
+
+        $isHtmx = $request->hasHeader('HX-Request');
+
+        return view('outline.chapters.index', compact('chapters', 'isHtmx'))
+          ->fragmentIf($isHtmx, 'chapter-list');
     }
 
     public function show(Chapter $chapter)
@@ -18,9 +22,12 @@ class ChapterController extends Controller
         return view('outline.chapters.show', compact('chapter'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('outline.chapters.create');
+        $isHtmx = $request->hasHeader('HX-Request');
+
+        return view('outline.chapters.create', compact('isHtmx'))
+          ->fragmentIf($isHtmx, 'create-form');
     }
 
     public function store(Request $request)
@@ -34,6 +41,15 @@ class ChapterController extends Controller
         $data['order'] = $nextOrder;
 
         $chapter = Chapter::create($data);
+
+        $isHtmx = $request->hasHeader('HX-Request');
+
+        if ($isHtmx) {
+          $chapters = Chapter::orderBy('order')->get();
+
+          return view('outline.chapters.index', compact('chapters', 'isHtmx'))
+            ->fragments(['chapter-list', 'modal-content']);
+        }
 
         return redirect()->route('outline.chapters.show', $chapter);
     }

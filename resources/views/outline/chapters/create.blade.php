@@ -4,10 +4,17 @@
   <h1 class="page-title">Create a New Chapter</h1>
 
   <div class="chapter-edit-form content">
+
+    @fragment('create-form')
     <form 
       method="POST" 
       action="{{ route('outline.chapters.store') }}"
       class="create-form"
+      @if ($isHtmx)
+        hx-post="{{ route('outline.chapters.store') }}"
+        hx-target=".chapter-list"
+        hx-swap="outerHTML"
+      @endif
     >
       @csrf
 
@@ -39,5 +46,7 @@
         <button type="submit">Create Chapter</button>
       </div>
     </form>
+    @endfragment
+    
   </div>
 @endsection

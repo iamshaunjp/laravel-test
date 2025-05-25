@@ -8,11 +8,15 @@ Route::get('/', function () {
   return view('welcome');
 });
 
-Route::get('/outline', function () {
-  return view('outline.index');
-});
-
 Route::prefix('outline')->name('outline.')->group(function () {
+  Route::get('/', function () {
+    return view('outline.index');
+  })->name('index');
+
   Route::resource('codex', CodexController::class);
   Route::resource('chapters', ChapterController::class);
+});
+
+Route::get('/modal/empty', function() {
+  return '';
 });

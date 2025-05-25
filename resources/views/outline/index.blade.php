@@ -2,16 +2,41 @@
 
 @section('content')
   <div class="outline-wrapper">
-    <h1 class="page-title">Outline Home</h1>
+    <h1 class="page-title">Outline Dashboard</h1>
 
-    <div class="content">
-      <p class="center my-12 max-w-1/2 mx-auto">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum optio, necessitatibus cumque labore voluptatem illo doloribus, iure placeat accusantium vero, distinctio beatae ex quis recusandae voluptates consectetur? Dolore, necessitatibus tenetur.
-      </p>
-      <div class="flex justify-center my-8 gap-8 max-w-1/2 mx-auto">
-        <a href="{{ route('outline.chapters.index') }}" class="btn">Chapter Timeline</a>
-        <a href="{{ route('outline.codex.index') }}" class="btn">Codex Entries</a>
+    <div class="dashboard">
+
+      <div 
+        class="col-span-3"
+        hx-get="{{ route('outline.chapters.index') }}" 
+        hx-trigger="load"
+        hx-swap="innerHTML"
+      >
+        Loading Chapters…
       </div>
+
+      <div
+        class="col-span-2"
+        hx-get="{{ route('outline.codex.index') }}" 
+        hx-trigger="load"
+        hx-swap="innerHTML"
+      >
+        Loading Codex...
+      </div>
+
+      <div class="modal-container"
+        hx-get="/modal/empty"
+        hx-target=".modal-content"
+        hx-swap="innerHTML"
+        hx-trigger="click target:.modal-container"
+      >
+        <div class="modal-content" id="modal"></div>
+      </div>
+
+      <noscript>
+        You have JavaScript disabled.
+      </noscript>
+
     </div>
   </div>
 @endsection

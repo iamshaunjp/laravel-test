@@ -3,10 +3,27 @@
 @section('content')
   <h1 class="page-title">Chapters Timeline</h1>
 
+  @fragment('chapter-list')
   <div class="chapter-list content">
-    <a href="{{ route('outline.chapters.create') }}" class="btn inline-block mb-4">
-      Add a New Chapter
-    </a>
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-xl ml-2 font-bold">Chapters</h2>
+    
+      @if ($isHtmx)
+        <a
+          hx-get="{{ route('outline.chapters.create') }}"
+          hx-target=".modal-content"
+          hx-swap="innerHTML"
+          class="btn"
+        >
+          Add a New Chapter
+        </a>
+      @else
+        <a href="{{ route('outline.chapters.create') }}" class="btn inline-block">
+          Add a New Chapter
+        </a>
+      @endif
+
+    </div>
 
     @forelse ($chapters as $chapter)
 
@@ -34,4 +51,10 @@
       <p class="empty">No chapters yet. Add your first one to get started!</p>
     @endforelse
   </div>
+  @endfragment
+
+  @fragment('modal-content')
+  <div class="modal-content" id="modal" hx-swap-oob="true"></div>
+  @endfragment
+  
 @endsection
