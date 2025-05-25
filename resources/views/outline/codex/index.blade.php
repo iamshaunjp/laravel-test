@@ -3,10 +3,13 @@
 @section('content')
   <h1 class="page-title">Codex</h1>
 
-  <div class="codex-list content">
-    <a href="{{ route('outline.codex.create') }}" class="btn inline-block mb-4">
-      Add a New Codex Entry
-    </a>
+  <div class="codex-list content" id="codex-list">
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-xl ml-2 font-bold">Codex Entries</h2>
+      <a href="{{ route('outline.codex.create') }}" class="btn inline-block">
+        Add a New Codex Entry
+      </a>
+    </div>
 
     @php
       $types = ['character', 'item', 'location'];

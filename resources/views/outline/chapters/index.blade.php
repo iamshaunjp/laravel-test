@@ -3,12 +3,15 @@
 @section('content')
   <h1 class="page-title">Chapters Timeline</h1>
 
-  <div class="chapter-list content">
-    <a href="{{ route('outline.chapters.create') }}" class="btn inline-block mb-4">
-      Add a New Chapter
-    </a>
+  <div class="chapter-list content" id="chapter-list">
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-xl ml-2 font-bold">Chapters</h2>
+      <a href="{{ route('outline.chapters.create') }}" class="btn inline-block mb-4">
+        Add a New Chapter
+      </a>
+    </div>
 
-    @forelse ($chapters as $chapter)
+      @forelse ($chapters as $chapter)
 
       <div class="chapter" id="chapter-{{ $chapter->id }}">
         <div class="chapter-header">
@@ -18,12 +21,6 @@
             class="chapter-title">
             {{ $chapter->title }}
           </a>
-          {{-- <a 
-            href="{{ route('outline.chapters.edit', $chapter) }}" 
-            class="chapter-edit" 
-            title="Edit Chapter">
-            <span>&#9998;</span>
-          </a> --}}
         </div>
         <div class="chapter-description">
           {{ Str::words($chapter->description, 10, '...') }}

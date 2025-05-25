@@ -22,6 +22,9 @@
         <a href="{{ url('/') }}" class="site-title">
           Arcitect
         </a>
+        <a href="{{ url('/outline') }}">
+          Outline Dashboard
+        </a>
       </nav>
     </header>
 
