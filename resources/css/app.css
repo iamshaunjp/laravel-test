@@ -17,7 +17,7 @@ body {
   @apply font-sans bg-gray-50;
 }
 .btn {
-  @apply bg-teal-700 text-white px-4 py-2 rounded-sm cursor-pointer;
+  @apply bg-indigo-500 text-white px-4 py-2 rounded-sm cursor-pointer;
 }
 .site-header {
   @apply bg-white py-4 px-8;
@@ -51,7 +51,7 @@ body {
     @apply leading-relaxed text-gray-700;
   }
   .chapter-edit {
-    @apply py-1 px-2 bg-teal-700 text-white cursor-pointer absolute top-0 right-0;
+    @apply py-1 px-2 bg-indigo-500 text-white cursor-pointer absolute top-0 right-0;
     border-radius: 0 2px 0 2px;
   }
 }
@@ -74,7 +74,7 @@ body {
   @apply flex justify-center;
 
   button {
-    @apply bg-teal-700 text-white py-2 px-3 rounded-sm;
+    @apply bg-indigo-500 text-white py-2 px-3 rounded-sm;
   }
 }
 
